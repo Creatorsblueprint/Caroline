@@ -42,7 +42,7 @@ const Footer = ({ setActiveNav }) => {
 
             </div>
             <motion.hr variants={softFadeIn} />
-            <motion.p variants={softFadeIn}>© 2025 Caroline Labouchere. All rights reserved.| www.creatorsblueprint.net</motion.p>
+            <motion.p variants={softFadeIn}>© {new Date().getFullYear()} Caroline Labouchere. All rights reserved.| www.creatorsblueprint.net</motion.p>
         </motion.div>
     );
 };
