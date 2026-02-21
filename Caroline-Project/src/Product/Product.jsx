@@ -63,8 +63,8 @@ const Product = () => {
             currency: "usd",
             image: "https://lebohangdev.github.io/Caroline/Images/ebook/ebook_cover2.png",
             email: email,
-            successUrl: "https://lebohangdev.github.io/Caroline/?payment=success",
-            cancelUrl: "https://lebohangdev.github.io/Caroline/?payment=cancel",
+            successUrl: "https://carolinelabouchere.com/?payment=success",
+            cancelUrl: "https://carolinelabouchere.com/?payment=cancel",
 
 
         }
