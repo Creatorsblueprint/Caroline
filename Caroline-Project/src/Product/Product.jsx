@@ -61,7 +61,7 @@ const Product = () => {
             description: "Guide to owning your presence, personal style, and confidence, no matter where you are in life.",
             price: 29,
             currency: "usd",
-            image: "https://lebohangdev.github.io/Caroline/Images/ebook/ebook_cover2.png",
+            image: "https://Creatorsblueprint.github.io/Caroline/Images/ebook/ebook_cover2.png",
             email: email,
             successUrl: "https://carolinelabouchere.com/?payment=success",
             cancelUrl: "https://carolinelabouchere.com/?payment=cancel",
