@@ -76,7 +76,7 @@ const Product = () => {
 
     // asyncronous function to handle stripe checkout when called 
     async function handleCheckout(productPayload) {
-        const res = await fetch("https://carolinebackend.onrender.com/api/create-checkout-session", {
+        const res = await fetch("https://carolinebackend-648711352735.me-west1.run.app/api/create-checkout-session", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             // sending product payload to backend
