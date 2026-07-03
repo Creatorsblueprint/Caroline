@@ -247,6 +247,10 @@ const Product = () => {
                     </div>
                 </div>
 
+                <div className={styles.scrollHint}>
+                    <i className="ri-arrow-left-right-line"></i> Swipe or tap arrows to see other ebook option
+                </div>
+
                 <div className={styles.paginationDots}>
                     <button
                         className={`${styles.dot} ${ebookChoice === 2 ? styles.activeDot : ''}`}

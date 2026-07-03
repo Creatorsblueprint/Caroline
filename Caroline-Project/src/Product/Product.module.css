@@ -306,6 +306,28 @@
     cursor: pointer;
 }
 
+.scrollHint {
+    font-size: 0.85rem;
+    color: var(--accent-color2);
+    background-color: var(--bg-color2);
+    border: 1px solid rgba(104, 93, 84, 0.2);
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    text-align: center;
+    margin: 1.5rem auto 0 auto;
+    font-style: italic;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.4rem;
+    width: fit-content;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+}
+
+.scrollHint i {
+    font-size: 1rem;
+}
+
 .priceContainer {
     margin-top: 1.5rem;
     display: flex;
