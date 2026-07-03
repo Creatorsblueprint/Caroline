@@ -20,6 +20,12 @@ const Product = () => {
     const [touchEnd, setTouchEnd] = useState(null);
 
     const minSwipeDistance = 50;
+    let ebookPrice;
+    if (ebookChoice === 1) {
+        ebookPrice = "2";
+    } else {
+        ebookPrice = "2";
+    }
 
     const onTouchStart = (e) => {
         setTouchEnd(null);
@@ -88,7 +94,7 @@ const Product = () => {
                 type: "ebook",
                 title: "Aging Without Apology",
                 description: "Guide to owning your presence, personal style, and confidence, no matter where you are in life.",
-                price: 2,
+                price: ebookPrice,
                 currency: "usd",
                 image: "https://Creatorsblueprint.github.io/Caroline/Images/ebook/ebook_cover2.png",
                 email: email,
@@ -100,7 +106,7 @@ const Product = () => {
                 type: "ebook",
                 title: "Beauty, Under the Skin",
                 description: "A candid guide to medical aesthetics. Caroline shares honest personal experiences, realistic recovery timelines, treatments to try, and what to avoid.",
-                price: 2,
+                price: ebookPrice,
                 currency: "usd",
                 image: "https://Creatorsblueprint.github.io/Caroline/Images/ebook/ebook_cover3.png",
                 email: email,
@@ -119,6 +125,8 @@ const Product = () => {
 
         window.location.href = data.url;
     };
+
+
 
     return (
         <motion.div
@@ -194,7 +202,7 @@ const Product = () => {
                                     </motion.button>
                                 </div>
                                 <div className={styles.priceContainer}>
-                                    <div className={styles.priceValue}>$29</div>
+                                    <div className={styles.priceValue}>${ebookPrice}</div>
                                     <p className={styles.priceNote}>
                                         *Sent directly to your email after checkout (check spam/junk folder if it doesn't arrive within a few minutes).
                                     </p>
