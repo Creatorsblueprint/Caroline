@@ -419,16 +419,17 @@
 @media (max-width: 768px) {
 
     .carouselContainer {
-        padding: 1.5rem 0;
+        padding: 1rem 0 70px 0;
+        position: relative;
     }
 
     .carouselSlide {
         display: flex;
         flex-direction: column;
-        padding: 1.5rem 24px;
+        padding: 1rem 20px;
         text-align: center;
         align-items: center;
-        gap: 1.5rem;
+        gap: 1rem;
     }
 
     .productContent1,
@@ -444,41 +445,43 @@
     .productText {
         align-items: center;
         order: 1;
-        padding: 0 5%;
+        padding: 0;
+        width: 100%;
     }
 
     .carouselSlide h1 {
-        font-size: 3.5rem;
+        font-size: 2.6rem;
         margin-bottom: 0.5rem;
+        line-height: 1.1;
     }
 
     .subtitle {
-        font-size: 1.2rem;
+        font-size: 1.15rem;
         text-align: center;
-    }
-
-    .author {
-        font-size: 1rem;
-        margin-bottom: 1rem;
+        line-height: 1.3;
+        margin-bottom: 0.5rem;
     }
 
     .descriptionText {
-        font-size: 1.1rem;
-        line-height: 1.6;
+        font-size: 1rem;
+        line-height: 1.5;
+        text-align: center;
+        max-width: 100%;
+        margin-bottom: 0.8rem;
     }
 
     .carouselSlide .productContent1 {
         order: 2;
         display: flex;
         justify-content: center;
-        padding: 0 5%;
+        padding: 0;
         width: 100%;
         margin: 0.5rem 0;
     }
 
     .productImage {
-        width: 75%;
-        max-width: 250px;
+        width: 60%;
+        max-width: 200px;
     }
 
     .productImage img {
@@ -486,33 +489,35 @@
     }
 
     .newBadge {
-        top: 1rem;
-        left: 1rem;
-        font-size: 0.75rem;
-        padding: 0.4rem 0.8rem;
+        top: 0.8rem;
+        left: 0.8rem;
+        font-size: 0.7rem;
+        padding: 0.3rem 0.6rem;
     }
 
     .productEmailField {
         order: 3;
-        padding: 0 5%;
+        padding: 0;
         margin-top: 0.5rem;
         width: 100%;
+        box-sizing: border-box;
     }
 
     .productEmailField .invalid {
-        text-align: left;
+        text-align: center;
     }
 
     .priceContainer {
         order: 4;
-        padding: 0 5%;
+        padding: 0;
         display: flex;
         flex-direction: column;
         align-items: center;
         text-align: center;
         width: 100%;
-        margin-top: 1rem;
+        margin-top: 0.8rem;
         gap: 0.25rem;
+        box-sizing: border-box;
     }
 
     .priceValue {
@@ -523,34 +528,47 @@
     .priceNote {
         font-size: 0.9rem;
         text-align: center;
-        max-width: 90%;
+        max-width: 95%;
         margin: 0 auto;
+        line-height: 1.4;
     }
 
     .section2 .title h1 {
-        font-size: 5rem;
+        font-size: 4rem;
     }
 
     .section2 .title p {
-        font-size: 1.5rem;
-        width: 70%;
+        font-size: 1.3rem;
+        width: 85%;
     }
 
     .bookGridItem p {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
     }
 
     .carouselArrow {
-        top: 40%;
-        width: 40px;
-        height: 40px;
+        top: auto;
+        bottom: 15px;
+        transform: none;
+        width: 44px;
+        height: 44px;
     }
 
     .arrowLeft {
-        left: 5px;
+        left: calc(50% - 70px);
     }
 
     .arrowRight {
-        right: 5px;
+        left: calc(50% + 26px);
+    }
+
+    .paginationDots {
+        position: absolute;
+        bottom: 27px;
+        left: 50%;
+        transform: translateX(-50%);
+        margin: 0;
+        width: auto;
+        z-index: 40;
     }
 }
