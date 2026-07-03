@@ -22,9 +22,9 @@ const Product = () => {
     const minSwipeDistance = 50;
     let ebookPrice;
     if (ebookChoice === 1) {
-        ebookPrice = "2";
+        ebookPrice = 4;
     } else {
-        ebookPrice = "2";
+        ebookPrice = 4;
     }
 
     const onTouchStart = (e) => {
