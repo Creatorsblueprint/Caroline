@@ -245,7 +245,7 @@ const Product = () => {
                                     </motion.button>
                                 </div>
                                 <div className={styles.priceContainer}>
-                                    <div className={styles.priceValue}>$29</div>
+                                    <div className={styles.priceValue}>${ebookPrice}</div>
                                     <p className={styles.priceNote}>
                                         *Sent directly to your email after checkout (check spam/junk folder if it doesn't arrive within a few minutes).
                                     </p>
