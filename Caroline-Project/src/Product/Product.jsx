@@ -15,8 +15,37 @@ const Product = () => {
 
     const [email, setEmail] = useState('');
     const [isValidEmail, setIsValidEmail] = useState(false);
+    const [ebookChoice, setEbookChoice] = useState(2);
+    const [touchStart, setTouchStart] = useState(null);
+    const [touchEnd, setTouchEnd] = useState(null);
 
+    const minSwipeDistance = 50;
 
+    const onTouchStart = (e) => {
+        setTouchEnd(null);
+        setTouchStart(e.targetTouches[0].clientX);
+    };
+
+    const onTouchMove = (e) => {
+        setTouchEnd(e.targetTouches[0].clientX);
+    };
+
+    const onTouchEnd = () => {
+        if (!touchStart || !touchEnd) return;
+        const distance = touchStart - touchEnd;
+        const isLeftSwipe = distance > minSwipeDistance;
+        const isRightSwipe = distance < -minSwipeDistance;
+
+        if (isLeftSwipe) {
+            setEbookChoice(1);
+        } else if (isRightSwipe) {
+            setEbookChoice(2);
+        }
+    };
+
+    const selectEbook = (choice) => {
+        setEbookChoice(choice);
+    };
 
     const validateEmail = (email) => {
         const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -29,70 +58,67 @@ const Product = () => {
         setIsValidEmail(validateEmail(val));
     };
 
-
-
-    const bookLearnings =
-        [
-            {
-                svg: "Images/Icons/book_icon1.svg", // replace with your SVG import or path
-                title: "Claim Your Visibility",
-                text: "How to stop fading into the background and confidently take up space at every stage of life."
-            },
-            {
-                svg: "Images/Icons/book_icon2.svg",
-                title: "Rewrite the Narrative",
-                text: "How to unlearn age-based limits and reframe experience as power, not decline."
-            },
-            {
-                svg: "Images/Icons/book_icon3.svg",
-                title: "Intentional Style",
-                text: "How personal style becomes a tool for visibility, presence, and self-respect, not trends."
-            },
-            {
-                svg: "Images/Icons/book_icon4.svg",
-                title: "Own Your Next Chapter",
-                text: "How to show up boldly, speak confidently, and move forward without apology, at any age."
-            }
-        ];
-    const product = [
+    const bookLearnings = [
         {
-            type: "ebook",
-            title: "Aging Without Apology",
-            description: "Guide to owning your presence, personal style, and confidence, no matter where you are in life.",
-            price: 29,
-            currency: "usd",
-            image: "https://Creatorsblueprint.github.io/Caroline/Images/ebook/ebook_cover2.png",
-            email: email,
-            successUrl: "https://carolinelabouchere.com/?payment=success",
-            cancelUrl: "https://carolinelabouchere.com/?payment=cancel",
-
-
+            svg: "Images/Icons/book_icon1.svg",
+            title: "Claim Your Visibility",
+            text: "How to stop fading into the background and confidently take up space at every stage of life."
+        },
+        {
+            svg: "Images/Icons/book_icon2.svg",
+            title: "Rewrite the Narrative",
+            text: "How to unlearn age-based limits and reframe experience as power, not decline."
+        },
+        {
+            svg: "Images/Icons/book_icon3.svg",
+            title: "Intentional Style",
+            text: "How personal style becomes a tool for visibility, presence, and self-respect, not trends."
+        },
+        {
+            svg: "Images/Icons/book_icon4.svg",
+            title: "Own Your Next Chapter",
+            text: "How to show up boldly, speak confidently, and move forward without apology, at any age."
         }
-    ]
+    ];
 
+    const handlePurchase = async (choice) => {
+        const payload = choice === 1
+            ? {
+                Ebook_choice: 1,
+                type: "ebook",
+                title: "Aging Without Apology",
+                description: "Guide to owning your presence, personal style, and confidence, no matter where you are in life.",
+                price: 29,
+                currency: "usd",
+                image: "https://Creatorsblueprint.github.io/Caroline/Images/ebook/ebook_cover2.png",
+                email: email,
+                successUrl: "https://carolinelabouchere.com/?payment=success",
+                cancelUrl: "https://carolinelabouchere.com/?payment=cancel",
+            }
+            : {
+                Ebook_choice: 2,
+                type: "ebook",
+                title: "Beauty, Under the Skin",
+                description: "A candid guide to medical aesthetics. Caroline shares honest personal experiences, realistic recovery timelines, treatments to try, and what to avoid.",
+                price: 29,
+                currency: "usd",
+                image: "https://Creatorsblueprint.github.io/Caroline/Images/ebook/ebook_cover3.png",
+                email: email,
+                successUrl: "https://carolinelabouchere.com/?payment=success",
+                cancelUrl: "https://carolinelabouchere.com/?payment=cancel",
+            };
 
-
-
-
-    // asyncronous function to handle stripe checkout when called 
-    async function handleCheckout(productPayload) {
         const res = await fetch("https://carolinebackend-648711352735.me-west1.run.app/api/create-checkout-session", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            // sending product payload to backend
-            body: JSON.stringify(productPayload),
+            body: JSON.stringify(payload),
         });
-
-        // storing response from backend in json format
 
         const data = await res.json();
         console.log("Session response:", data);
 
-        // redirect to stripe checkout
         window.location.href = data.url;
-    }
-
-
+    };
 
     return (
         <motion.div
@@ -103,34 +129,136 @@ const Product = () => {
             viewport={{ once: true, amount: 0.1 }}
             variants={containerStagger}
         >
-            <div className={styles.section1}>
-                <motion.div className={styles.productContent1} variants={softFadeUp}>
-                    <div className={styles.productImage}>
-                        <img src="Images/ebook/ebook_cover2.png" alt="" />
-                    </div>
-                </motion.div>
+            <div
+                className={styles.carouselContainer}
+                onTouchStart={onTouchStart}
+                onTouchMove={onTouchMove}
+                onTouchEnd={onTouchEnd}
+            >
+                <button
+                    className={`${styles.carouselArrow} ${styles.arrowLeft}`}
+                    onClick={() => selectEbook(2)}
+                    disabled={ebookChoice === 2}
+                    aria-label="Previous ebook"
+                >
+                    <i className="ri-arrow-left-s-line"></i>
+                </button>
+                <button
+                    className={`${styles.carouselArrow} ${styles.arrowRight}`}
+                    onClick={() => selectEbook(1)}
+                    disabled={ebookChoice === 1}
+                    aria-label="Next ebook"
+                >
+                    <i className="ri-arrow-right-s-line"></i>
+                </button>
 
-                <motion.div className={styles.productContent2} variants={containerStagger}>
-                    <motion.div className={styles.productText} variants={softFadeUp}>
-                        <p>EBOOK</p>
-                        <div className={styles.title}>
-                            <h1>Becoming Visible at Any Age</h1>
+                <div className={styles.carouselViewport}>
+                    <div
+                        className={styles.carouselTrack}
+                        style={{ transform: `translateX(-${ebookChoice === 2 ? 0 : 50}%)` }}
+                    >
+                        {/* Slide 1 - Beauty, Under the Skin */}
+                        <div className={styles.carouselSlide}>
+                            <div className={styles.productContent1}>
+                                <div className={`${styles.productImage} ${styles.hasBadge}`}>
+                                    <div className={styles.newBadge}>NEW</div>
+                                    <img src="Images/ebook/ebook_cover3.png" alt="Beauty, Under the Skin Cover" />
+                                </div>
+                            </div>
+
+                            <div className={styles.productContent2}>
+                                <div className={styles.productText}>
+                                    <p>EBOOK</p>
+                                    <div className={styles.title}>
+                                        <h1>Beauty, Under the Skin</h1>
+                                    </div>
+                                    <h3 className={styles.subtitle}>Medical Interventions, Real Results, and What I’d Actually Do Again</h3>
+                                    <p className={styles.descriptionText}>
+                                        A candid guide to medical aesthetics. Caroline shares honest personal experiences, realistic recovery timelines, treatments to try, and what to avoid.
+                                    </p>
+                                </div>
+                                <div className={styles.productEmailField}>
+                                    <p className={isValidEmail ? styles.valid : styles.invalid}>*Enter a valid email</p>
+                                    <input
+                                        type="text"
+                                        value={email}
+                                        placeholder="Enter your email"
+                                        onChange={handleEmailChange}
+                                    />
+                                    <motion.button
+                                        disabled={!isValidEmail}
+                                        whileHover={isValidEmail ? buttonHover : ""}
+                                        onClick={() => { handlePurchase(ebookChoice); setEmail(''); }}
+                                    >
+                                        GET STARTED NOW!
+                                    </motion.button>
+                                </div>
+                                <div className={styles.priceContainer}>
+                                    <div className={styles.priceValue}>$29</div>
+                                    <p className={styles.priceNote}>
+                                        *Sent directly to your email after checkout (check spam/junk folder if it doesn't arrive within a few minutes).
+                                    </p>
+                                </div>
+                            </div>
                         </div>
-                        <p>guide to owning your presence, personal style, and confidence, no matter where you are in life</p>
 
-                    </motion.div>
-                    <motion.div className={styles.productEmailField} variants={softFadeUp}>
-                        <p className={isValidEmail ? styles.valid : styles.invalid}>*Enter a valid email</p>
-                        <input type="text" value={email} placeholder="Enter your email" onChange={handleEmailChange} />
-                        <motion.button disabled={!isValidEmail} whileHover={isValidEmail ? buttonHover : ""} onClick={() => { handleCheckout(product[0]); setEmail(''); }}>GET STARTED NOW!</motion.button>
-                    </motion.div>
-                    <motion.div className={styles.priceContainer} variants={softFadeUp}>
-                        <h1>Price</h1>
-                        <p>$29</p>
-                        <p>After payment, eBook will be sent to given email (Check spam/junk folder if you dont see it in a few minutes.)</p>
-                    </motion.div>
-                </motion.div>
+                        {/* Slide 2 - Becoming Visible at Any Age */}
+                        <div className={styles.carouselSlide}>
+                            <div className={styles.productContent1}>
+                                <div className={styles.productImage}>
+                                    <img src="Images/ebook/ebook_cover2.png" alt="Aging Without Apology Cover" />
+                                </div>
+                            </div>
 
+                            <div className={styles.productContent2}>
+                                <div className={styles.productText}>
+                                    <p>EBOOK</p>
+                                    <div className={styles.title}>
+                                        <h1>Becoming Visible at Any Age</h1>
+                                    </div>
+                                    <p className={styles.descriptionText}>
+                                        A guide to owning your presence, personal style, and confidence, no matter where you are in life.
+                                    </p>
+                                </div>
+                                <div className={styles.productEmailField}>
+                                    <p className={isValidEmail ? styles.valid : styles.invalid}>*Enter a valid email</p>
+                                    <input
+                                        type="text"
+                                        value={email}
+                                        placeholder="Enter your email"
+                                        onChange={handleEmailChange}
+                                    />
+                                    <motion.button
+                                        disabled={!isValidEmail}
+                                        whileHover={isValidEmail ? buttonHover : ""}
+                                        onClick={() => { handlePurchase(ebookChoice); setEmail(''); }}
+                                    >
+                                        GET STARTED NOW!
+                                    </motion.button>
+                                </div>
+                                <div className={styles.priceContainer}>
+                                    <div className={styles.priceValue}>$29</div>
+                                    <p className={styles.priceNote}>
+                                        *Sent directly to your email after checkout (check spam/junk folder if it doesn't arrive within a few minutes).
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className={styles.paginationDots}>
+                    <button
+                        className={`${styles.dot} ${ebookChoice === 2 ? styles.activeDot : ''}`}
+                        onClick={() => selectEbook(2)}
+                        aria-label="Ebook: Beauty, Under the Skin"
+                    ></button>
+                    <button
+                        className={`${styles.dot} ${ebookChoice === 1 ? styles.activeDot : ''}`}
+                        onClick={() => selectEbook(1)}
+                        aria-label="Ebook: Becoming Visible at Any Age"
+                    ></button>
+                </div>
             </div>
             <motion.div
                 className={styles.section2}

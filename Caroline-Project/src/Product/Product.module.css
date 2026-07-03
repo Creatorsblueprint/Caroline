@@ -10,16 +10,34 @@
 }
 
 
-.section1 {
-
-    display: grid;
-    grid-template-columns: 1fr 1.3fr;
-    gap: 2rem;
-    align-items: flex-start;
-    padding: 2rem 0;
+.carouselContainer {
+    position: relative;
+    width: 100%;
     margin: 0 auto;
     max-width: 1600px;
+    padding: 2rem 0;
+}
 
+.carouselViewport {
+    overflow: hidden;
+    width: 100%;
+}
+
+.carouselTrack {
+    display: flex;
+    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    width: 200%;
+}
+
+.carouselSlide {
+    width: 50%;
+    flex-shrink: 0;
+    display: grid;
+    grid-template-columns: 1fr 1.3fr;
+    gap: 3rem;
+    align-items: center;
+    padding: 0 5%;
+    box-sizing: border-box;
 }
 
 .productContent1 {
@@ -27,7 +45,13 @@
     justify-content: center;
     align-items: center;
     width: 100%;
+}
 
+.productImage {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    max-width: 450px;
 }
 
 .productImage img {
@@ -36,14 +60,134 @@
     object-fit: contain;
     border-radius: 0;
     padding: 1.5rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    background-color: transparent;
 }
 
 .productContent2 {
-    padding: 2rem 5%;
-    padding-top: 0;
+    padding: 1rem 3%;
     display: flex;
     flex-direction: column;
     justify-content: center;
+}
+
+/* Badge */
+.hasBadge {
+    position: relative;
+}
+
+.newBadge {
+    position: absolute;
+    top: 2rem;
+    left: 2rem;
+    background-color: var(--accent-color2);
+    color: var(--text-color-white);
+    font-family: inherit;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    padding: 0.5rem 1.2rem;
+    z-index: 20;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    text-transform: uppercase;
+}
+
+/* Arrows */
+.carouselArrow {
+    position: absolute;
+    top: 45%;
+    transform: translateY(-50%);
+    background: rgba(251, 247, 244, 0.75);
+    border: 1px solid var(--accent-color2);
+    color: var(--accent-color2);
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 50;
+    backdrop-filter: blur(4px);
+}
+
+.carouselArrow:hover:not(:disabled) {
+    background-color: var(--accent-color2);
+    color: var(--text-color-white);
+}
+
+.carouselArrow:disabled {
+    opacity: 0.2;
+    cursor: not-allowed;
+    border-color: rgba(104, 93, 84, 0.3);
+    color: rgba(104, 93, 84, 0.3);
+}
+
+.arrowLeft {
+    left: 20px;
+}
+
+.arrowRight {
+    right: 20px;
+}
+
+/* Pagination Dots */
+.paginationDots {
+    display: flex;
+    justify-content: center;
+    gap: 0.8rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    width: 100%;
+}
+
+.dot {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    border: 2px solid var(--accent-color2);
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0;
+}
+
+.activeDot {
+    background-color: var(--accent-color2);
+    transform: scale(1.2);
+}
+
+/* Book Details Text Hierarchy */
+.subtitle {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    margin-top: 0;
+    line-height: 1.4;
+    color: var(--text-color2);
+    font-family: "Crimson Text", serif;
+    opacity: 0.9;
+}
+
+.author {
+    font-size: 1.1rem;
+    font-style: italic;
+    margin-bottom: 1.5rem;
+    margin-top: 0;
+    color: var(--text-color2);
+    opacity: 0.8;
+}
+
+.descriptionText {
+    font-size: 1.2rem;
+    margin-bottom: 1.2rem;
+    margin-top: 0;
+    line-height: 1.7;
+    letter-spacing: 0.5px;
+    max-width: 650px;
+    opacity: 0.85;
 }
 
 .productText {
@@ -163,29 +307,28 @@
 }
 
 .priceContainer {
-    margin-top: 1rem;
-    line-height: 40px;
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 
-.priceContainer h1 {
+.priceValue {
     font-size: 2.5rem;
-    font-weight: 600;
-    color: #222222;
-    margin-bottom: 0;
+    font-weight: 700;
+    color: var(--text-color2);
+    font-family: "Crimson Text", serif;
+    line-height: 1;
 }
 
-.priceContainer p:first-of-type {
-    font-size: 3rem;
-    font-weight: 600;
-    margin: 0.5rem 0;
-    color: #222222;
-}
-
-.priceContainer p:last-of-type {
-    font-size: 1.1rem;
-    margin-top: 0;
-
+.priceNote {
+    font-size: 0.95rem;
     color: #4d4d4d;
+    line-height: 1.5;
+    margin: 0;
+    font-style: italic;
+    opacity: 0.9;
+    max-width: 100%;
 }
 
 
@@ -275,18 +418,22 @@
 
 @media (max-width: 768px) {
 
-    .section1 {
+    .carouselContainer {
+        padding: 1.5rem 0;
+    }
+
+    .carouselSlide {
         display: flex;
         flex-direction: column;
-        padding: 2rem 0;
+        padding: 1.5rem 24px;
         text-align: center;
-        align-items: flex-start;
+        align-items: center;
+        gap: 1.5rem;
     }
 
     .productContent1,
     .productContent2 {
         display: contents;
-
     }
 
     .bookGridItems {
@@ -296,13 +443,89 @@
 
     .productText {
         align-items: center;
+        order: 1;
+        padding: 0 5%;
     }
 
-    .section1 .title h1 {
-        font-size: 4rem;
+    .carouselSlide h1 {
+        font-size: 3.5rem;
+        margin-bottom: 0.5rem;
     }
 
+    .subtitle {
+        font-size: 1.2rem;
+        text-align: center;
+    }
 
+    .author {
+        font-size: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .descriptionText {
+        font-size: 1.1rem;
+        line-height: 1.6;
+    }
+
+    .carouselSlide .productContent1 {
+        order: 2;
+        display: flex;
+        justify-content: center;
+        padding: 0 5%;
+        width: 100%;
+        margin: 0.5rem 0;
+    }
+
+    .productImage {
+        width: 75%;
+        max-width: 250px;
+    }
+
+    .productImage img {
+        padding: 0.5rem;
+    }
+
+    .newBadge {
+        top: 1rem;
+        left: 1rem;
+        font-size: 0.75rem;
+        padding: 0.4rem 0.8rem;
+    }
+
+    .productEmailField {
+        order: 3;
+        padding: 0 5%;
+        margin-top: 0.5rem;
+        width: 100%;
+    }
+
+    .productEmailField .invalid {
+        text-align: left;
+    }
+
+    .priceContainer {
+        order: 4;
+        padding: 0 5%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        width: 100%;
+        margin-top: 1rem;
+        gap: 0.25rem;
+    }
+
+    .priceValue {
+        font-size: 2.2rem;
+        text-align: center;
+    }
+
+    .priceNote {
+        font-size: 0.9rem;
+        text-align: center;
+        max-width: 90%;
+        margin: 0 auto;
+    }
 
     .section2 .title h1 {
         font-size: 5rem;
@@ -313,57 +536,21 @@
         width: 70%;
     }
 
-
-    .productText {
-        order: 1;
-        padding: 0 5%;
-    }
-
-    .productContent1 .productImage {
-        order: 2;
-        display: flex;
-        justify-content: center;
-        padding: 0 5%;
-    }
-
-    .productEmailField {
-        order: 3;
-        padding: 0 5%;
-        margin-top: 1rem;
-    }
-
-    .productEmailField .invalid {
-        text-align: left;
-    }
-
-
-
-    .priceContainer {
-        order: 4;
-        padding: 0 5%;
-
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        text-align: left;
-        width: 90%;
-
-    }
-
-    .priceContainer h1,
-    .priceContainer p {
-        margin-left: 0;
-        text-align: left;
-    }
-
-    .priceContainer p:last-of-type {
-        font-size: 1rem;
-        text-align: center;
-        align-self: center;
-
-    }
-
     .bookGridItem p {
         font-size: 1.2rem;
+    }
+
+    .carouselArrow {
+        top: 40%;
+        width: 40px;
+        height: 40px;
+    }
+
+    .arrowLeft {
+        left: 5px;
+    }
+
+    .arrowRight {
+        right: 5px;
     }
 }
